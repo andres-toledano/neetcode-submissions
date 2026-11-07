@@ -1,0 +1,29 @@
+from collections import defaultdict
+
+class TimeMap:
+
+    def __init__(self):
+        self.store = defaultdict(list)
+
+    def set(self, key: str, value: str, timestamp: int) -> None:
+        self.store[key].append((value, timestamp))
+
+    def get(self, key: str, timestamp: int) -> str:
+        store_list = self.store[key]
+        l = 0
+        r = len(store_list) - 1
+
+        while l <= r:
+            mid = (l + r) // 2
+            mid_timestamp = store_list[mid][1]
+            if timestamp > mid_timestamp:
+                l = mid + 1
+            elif timestamp < mid_timestamp:
+                r = mid - 1
+            else:
+                return store_list[mid][0]
+        return store_list[r][0] if r >= 0 else ""
+
+            
+
+        
